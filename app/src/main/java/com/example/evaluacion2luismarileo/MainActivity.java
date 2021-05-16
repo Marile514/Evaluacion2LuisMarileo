@@ -2,6 +2,7 @@ package com.example.evaluacion2luismarileo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -86,7 +87,10 @@ public class MainActivity extends AppCompatActivity{
         if (view.getId() == R.id.btnIniciar) {
             validarCorreo(user);
             aceptarContraseña(password);
-
+            if(validarCorreo(user) && aceptarContraseña(password)){
+                Intent i = new Intent(this, ProductoActivity.class);
+                startActivity(i);
+            }
         }
         if (view.getId() == R.id.btnCancelar) {
             finish();
