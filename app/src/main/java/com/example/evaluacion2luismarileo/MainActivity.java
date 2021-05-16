@@ -70,14 +70,16 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
-    private void buttonPrincipal(View view){
-        if(view.getId() == R.id.btnIniciar){
+    private void buttonPrincipal(View view) {
+        if (view.getId() == R.id.btnIniciar) {
             validarCorreo(user);
             aceptarContraseña(password);
-            
+
         }
-        if(view.getId() == R.id.btnCancelar){
+        if (view.getId() == R.id.btnCancelar) {
             finish();
         }
     }
+
+    //Probar cambio de github
 }
