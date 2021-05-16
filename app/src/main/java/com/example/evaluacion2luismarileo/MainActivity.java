@@ -34,16 +34,28 @@ public class MainActivity extends AppCompatActivity{
 
     private boolean validarCorreo(TextInputEditText user){
         if(!user.getText().toString().isEmpty()){
-            Pattern pat = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-            Matcher match = pat.matcher(user.getText().toString());
-            if(!match.find()){
-                user.setError("No es un email");
+            String strCorreo = user.getText().toString();
+            //Usar el método validarCorreo2(strCorreo) para la expresión regular.
+            if(validarCorreo2(strCorreo)){
+                return true;
+            } else {
+                user.setError("No es un Correo!");
+                return false;
             }
-            return match.find();
         } else {
             user.setError("Correo vacío");
             return false;
         }
+    }
+
+    /**
+     * Nuevo Método para manejar la respuesta.
+     */
+
+    public boolean validarCorreo2(String correo){
+        Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        Matcher matcher = pattern.matcher(correo);
+        return matcher.find();
     }
 
     private boolean aceptarContraseña(TextInputEditText password){
