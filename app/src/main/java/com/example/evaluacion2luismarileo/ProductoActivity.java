@@ -3,10 +3,13 @@ package com.example.evaluacion2luismarileo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -14,6 +17,7 @@ import java.util.ArrayList;
 
 public class ProductoActivity extends AppCompatActivity {
     private TextInputEditText codigo, nombre;
+    private String estadoProducto, tipoProducto;
     private AutoCompleteTextView tipo;
     private Spinner spEstado;
     private Button btn1, btn2;
@@ -29,7 +33,8 @@ public class ProductoActivity extends AppCompatActivity {
 
         inits();
         Arreglo();
-
+        btnActions2();
+        actCompletSpin();
     }
 
     private void inits(){
@@ -68,5 +73,82 @@ public class ProductoActivity extends AppCompatActivity {
         tipo.setThreshold(1);
     }
 
+    private void buttonPrincipal2(View view){
+        if(view.getId() == R.id.btnOk){
+            //1.- Validar que el codigo y el nombre no estén vacíos y si lo estan poner un setError.
+            //2.- Crear los métodos -> spinner.setOnItemSelected,
+            //3.- Usar esos metodos para asignar los valores de los campos al objeto
 
+            //1.- Respuesta.
+            validarCodigo(codigo);
+            validarNombre(nombre);
+            if(validarCodigo(codigo) && validarNombre(nombre)){
+                Toast.makeText(ProductoActivity.this, "Datos completos", Toast.LENGTH_SHORT).show();
+            }
+
+            //2.- Spinner -> setOnItemSelectedListener || AutoComTextView -> setOnItemClickListener
+            Toast.makeText(ProductoActivity.this, "Spinner valor: " +estadoProducto, Toast.LENGTH_SHORT).show();
+        }
+        if(view.getId() == R.id.btnVolver){
+            finish();
+        }
+    }
+
+    private boolean validarCodigo(TextInputEditText txe){
+        if(!txe.getText().toString().isEmpty()){
+            return true;
+        } else {
+            txe.setError("Codigo (ID) vacío");
+            return false;
+        }
+    }
+
+    private boolean validarNombre(TextInputEditText txe){
+        if(!txe.getText().toString().isEmpty()){
+            return true;
+        } else {
+            txe.setError("Nombre vacío");
+            return false;
+        }
+    }
+
+    private void btnActions2(){
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonPrincipal2(v);
+            }
+        });
+
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonPrincipal2(v);
+            }
+        });
+    }
+
+    //Metodod de los spinner y autoComplete
+    private void actCompletSpin(){
+        spEstado.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Object c = parent.getItemAtPosition(position);
+                String Estado = c.toString();
+                estadoProducto = Estado;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        tipo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
+    }
 }

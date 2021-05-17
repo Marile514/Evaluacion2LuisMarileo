@@ -33,6 +33,9 @@ public class MainActivity extends AppCompatActivity{
         btnCancelar = findViewById(R.id.btnCancelar);
     }
 
+    /**
+     * Nuevo Método para manejar la respuesta.
+     */
     private boolean validarCorreo(TextInputEditText user){
         if(!user.getText().toString().isEmpty()){
             String strCorreo = user.getText().toString();
@@ -48,10 +51,6 @@ public class MainActivity extends AppCompatActivity{
             return false;
         }
     }
-
-    /**
-     * Nuevo Método para manejar la respuesta.
-     */
 
     public boolean validarCorreo2(String correo){
         Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
