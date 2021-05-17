@@ -13,6 +13,16 @@ public class Producto {
         this.estado = estado;
     }
 
+    @Override
+    public String toString() {
+        return "Producto{" +
+                "ID='" + ID + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", tipo='" + tipo + '\'' +
+                ", estado='" + estado + '\'' +
+                '}';
+    }
+
     public String getID() {
         return ID;
     }

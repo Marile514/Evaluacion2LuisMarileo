@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity{
             validarCorreo(user);
             aceptarContraseña(password);
             if(validarCorreo(user) && aceptarContraseña(password)){
+                limpiarCampos();
                 Intent i = new Intent(this, ProductoActivity.class);
                 startActivity(i);
             }
@@ -97,4 +98,8 @@ public class MainActivity extends AppCompatActivity{
     }
 
     //Probar cambio de github
+    private void limpiarCampos(){
+        user.setText("");
+        password.setText("");
+    }
 }

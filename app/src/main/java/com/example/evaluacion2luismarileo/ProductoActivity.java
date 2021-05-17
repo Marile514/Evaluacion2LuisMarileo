@@ -3,6 +3,7 @@ package com.example.evaluacion2luismarileo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -32,18 +33,27 @@ public class ProductoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_producto);
 
         inits();
-        Arreglo();
         btnActions2();
-        actCompletSpin();
+
     }
 
     private void inits(){
-        codigo = (TextInputEditText) findViewById(R.id.etiId);
-        nombre = (TextInputEditText) findViewById(R.id.etiNombre);
-        tipo = (AutoCompleteTextView) findViewById(R.id.atvTipo);
-        spEstado = (Spinner) findViewById(R.id.spnEstado);
-        btn1 = (Button) findViewById(R.id.btnOk);
-        btn2 = (Button) findViewById(R.id.btnVolver);
+        Arreglo();
+        codigo = findViewById(R.id.etiId);
+        nombre = findViewById(R.id.etiNombre);
+        tipo = findViewById(R.id.atvTipo);
+        spEstado = findViewById(R.id.spnEstado);
+        btn1 = findViewById(R.id.btnOk);
+        btn2 = findViewById(R.id.btnVolver);
+
+        adaptadorSpin = new ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, prodEstado);
+        spEstado.setAdapter(adaptadorSpin);
+
+        adaptadorActv = new ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, tipoProd);
+        tipo.setAdapter(adaptadorActv);
+        tipo.setThreshold(1);
+
+        actCompletSpin();
     }
 
     private void Arreglo(){
@@ -52,9 +62,6 @@ public class ProductoActivity extends AppCompatActivity {
         prodEstado[1] = "Control de calidad";
         prodEstado[2] = "No vigente";
         prodEstado[3] = "En tránsito";
-
-        adaptadorSpin = new ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, prodEstado);
-        spEstado.setAdapter(adaptadorSpin);
 
         //Métodos de AutoCompleteTextView.
         tipoProd[0] = "Consumo";
@@ -67,10 +74,6 @@ public class ProductoActivity extends AppCompatActivity {
         tipoProd[7] = "Tipo 2";
         tipoProd[8] = "Tipo 3";
         tipoProd[9] = "Tipo 4";
-
-        adaptadorActv = new ArrayAdapter(this, android.R.layout.simple_expandable_list_item_2, tipoProd);
-        tipo.setAdapter(adaptadorActv);
-        tipo.setThreshold(1);
     }
 
     private void buttonPrincipal2(View view){
@@ -83,11 +86,11 @@ public class ProductoActivity extends AppCompatActivity {
             validarCodigo(codigo);
             validarNombre(nombre);
             if(validarCodigo(codigo) && validarNombre(nombre)){
-                Toast.makeText(ProductoActivity.this, "Datos completos", Toast.LENGTH_SHORT).show();
+                //2.- Spinner -> setOnItemSelectedListener || AutoComTextView -> setOnItemClickListener
+                productos.add(new Producto(codigo.getText().toString(), nombre.getText().toString(),tipoProducto, estadoProducto));
+                Log.d("TAG_", "Productos: "+ productos.toString());
+                limpiarCampos();
             }
-
-            //2.- Spinner -> setOnItemSelectedListener || AutoComTextView -> setOnItemClickListener
-            Toast.makeText(ProductoActivity.this, "Spinner valor: " +estadoProducto, Toast.LENGTH_SHORT).show();
         }
         if(view.getId() == R.id.btnVolver){
             finish();
@@ -110,6 +113,12 @@ public class ProductoActivity extends AppCompatActivity {
             txe.setError("Nombre vacío");
             return false;
         }
+    }
+
+    private void limpiarCampos(){
+        codigo.setText("");
+        nombre.setText("");
+        tipo.setText("");
     }
 
     private void btnActions2(){
@@ -147,7 +156,9 @@ public class ProductoActivity extends AppCompatActivity {
         tipo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                Object f = parent.getItemAtPosition(position);
+                String TipProduct = f.toString();
+                tipoProducto = TipProduct;
             }
         });
     }
