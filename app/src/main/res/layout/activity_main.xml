@@ -35,6 +35,7 @@
             android:id="@+id/edUsuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/icono_usuario"
             android:hint="Usuario (correo)" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -52,6 +53,7 @@
             android:id="@+id/edPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/icono_password"
             android:hint="Password"
             android:password="true" />
     </com.google.android.material.textfield.TextInputLayout>

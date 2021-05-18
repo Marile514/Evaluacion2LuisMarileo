@@ -79,14 +79,13 @@ public class ProductoActivity extends AppCompatActivity {
     private void buttonPrincipal2(View view){
         if(view.getId() == R.id.btnOk){
             //1.- Validar que el codigo y el nombre no estén vacíos y si lo estan poner un setError.
-            //2.- Crear los métodos -> spinner.setOnItemSelected,
+            //2.- Crear los métodos -> spinner.setOnItemSelected, AutoComTextView -> setOnItemClickListener
             //3.- Usar esos metodos para asignar los valores de los campos al objeto
 
             //1.- Respuesta.
             validarCodigo(codigo);
             validarNombre(nombre);
             if(validarCodigo(codigo) && validarNombre(nombre)){
-                //2.- Spinner -> setOnItemSelectedListener || AutoComTextView -> setOnItemClickListener
                 productos.add(new Producto(codigo.getText().toString(), nombre.getText().toString(),tipoProducto, estadoProducto));
                 Log.d("TAG_", "Productos: "+ productos.toString());
                 limpiarCampos();
@@ -137,7 +136,7 @@ public class ProductoActivity extends AppCompatActivity {
         });
     }
 
-    //Metodod de los spinner y autoComplete
+    //Metodos de los spinner y autoComplete
     private void actCompletSpin(){
         spEstado.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
