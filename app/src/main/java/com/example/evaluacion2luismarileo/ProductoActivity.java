@@ -51,19 +51,19 @@ public class ProductoActivity extends AppCompatActivity {
 
         adaptadorActv = new ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, tipoProd);
         tipo.setAdapter(adaptadorActv);
-        tipo.setThreshold(1);
+        tipo.setThreshold(3);
 
         actCompletSpin();
     }
 
     private void Arreglo(){
-       //Métodos de spinner.
+       //Arreglo del spinner.
         prodEstado[0] = "Disponible";
         prodEstado[1] = "Control de calidad";
         prodEstado[2] = "No vigente";
         prodEstado[3] = "En tránsito";
 
-        //Métodos de AutoCompleteTextView.
+        //Arreglo del AutoCompleteTextView.
         tipoProd[0] = "Consumo";
         tipoProd[1] = "Uso común";
         tipoProd[2] = "Emergencia";
