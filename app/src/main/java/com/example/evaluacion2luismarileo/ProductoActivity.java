@@ -89,10 +89,17 @@ public class ProductoActivity extends AppCompatActivity {
             validarNombre(nombre);
             if(validarCodigo(codigo) && validarNombre(nombre)){
                 if(productoId(codigo.getText().toString())){
-                    productoId(codigo.getText().toString());
+                    actualizarProducto(codigo.getText().toString());
                 }else{
                     productos.add(new Producto(codigo.getText().toString(), nombre.getText().toString(),tipoProducto, estadoProducto));
-                    Log.d("TAG_", "Productos: "+ productos.toString());
+                    for (int i = 0; i < productos.size(); i++) {
+                        Log.d("TAG_", "..  \n" +
+                                "Producto " + (i + 1)
+                                + ": \n"
+                                + productos.get(i).toString());
+                        Log.d("TAG_", "");
+                        Log.d("TAG_", "");
+                    }
                     limpiarCampos();
                 }
             }
