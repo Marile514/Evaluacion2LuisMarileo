@@ -201,10 +201,6 @@ public class ProductoActivity extends AppCompatActivity {
         }
     }
 
-    private void agregarProducto(){
-
-    }
-
     private boolean productoId(String parametro){
         boolean valor = false;
         if(productos.size() >= 1){
