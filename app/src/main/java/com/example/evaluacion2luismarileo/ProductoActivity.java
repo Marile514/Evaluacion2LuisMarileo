@@ -3,6 +3,8 @@ package com.example.evaluacion2luismarileo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -86,9 +88,13 @@ public class ProductoActivity extends AppCompatActivity {
             validarCodigo(codigo);
             validarNombre(nombre);
             if(validarCodigo(codigo) && validarNombre(nombre)){
-                productos.add(new Producto(codigo.getText().toString(), nombre.getText().toString(),tipoProducto, estadoProducto));
-                Log.d("TAG_", "Productos: "+ productos.toString());
-                limpiarCampos();
+                if(productoId(codigo.getText().toString())){
+                    productoId(codigo.getText().toString());
+                }else{
+                    productos.add(new Producto(codigo.getText().toString(), nombre.getText().toString(),tipoProducto, estadoProducto));
+                    Log.d("TAG_", "Productos: "+ productos.toString());
+                    limpiarCampos();
+                }
             }
         }
         if(view.getId() == R.id.btnVolver){
@@ -160,5 +166,63 @@ public class ProductoActivity extends AppCompatActivity {
                 tipoProducto = TipProduct;
             }
         });
+        codigo.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                productoId(s.toString());
+            }
+        });
+    }
+
+    private void actualizarProducto(String idProducto){
+        for(int i = 0; i < productos.size(); i++){
+            if(idProducto.equals(productos.get(i).getID())){
+                productos.get(i).setNombre(nombre.getText().toString());
+                productos.get(i).setTipo(tipo.getText().toString());
+                productos.get(i).setEstado(estadoProducto);
+            }
+        }
+    }
+
+    private void agregarProducto(){
+
+    }
+
+    private boolean productoId(String parametro){
+        boolean valor = false;
+        if(productos.size() >= 1){
+            for(int i = 0; i < productos.size(); i++) {
+                if (parametro.equals(productos.get(i).getID())) { //SI EXISTE EL ID
+                    nombre.setText(productos.get(i).getNombre());
+                    tipo.setText(productos.get(i).getTipo());
+                    int pos = 0;
+                    String estado = productos.get(i).getEstado();
+                    if (estado.equals("Disponible")) {
+                        pos = 0;
+                    } else if (estado.equals("Control de Calidad")) {
+                        pos = 1;
+                    } else if (estado.equals("No vigente")) {
+                        pos = 2;
+                    } else if (estado.equals("En transito")) {
+                        pos = 3;
+                    }
+                    spEstado.setSelection(pos);
+                    valor = true;
+                }
+            }
+        }else{
+            valor = false;
+        }
+        return valor;
     }
 }
