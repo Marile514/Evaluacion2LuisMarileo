@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity{
         return matcher.find();
     }
 
-    private boolean aceptarContraseña(TextInputEditText password){
+    private boolean aceptarContrasena(TextInputEditText password){
         if(!password.getText().toString().isEmpty()){
             return true;
         } else {
@@ -85,8 +85,8 @@ public class MainActivity extends AppCompatActivity{
     private void buttonPrincipal(View view) {
         if (view.getId() == R.id.btnIniciar) {
             validarCorreo(user);
-            aceptarContraseña(password);
-            if(validarCorreo(user) && aceptarContraseña(password)){
+            aceptarContrasena(password);
+            if(validarCorreo(user) && aceptarContrasena(password)){
                 limpiarCampos();
                 Intent i = new Intent(this, ProductoActivity.class);
                 startActivity(i);
